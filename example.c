@@ -22,12 +22,13 @@ int main()
     printf("%f!!!\n", go -> data);
     InsertBefore(my_list, my_list ->last, -666);
 
-    //printf("%x ", my_list -> first -> next);
     print_List(my_list);
     pop_back(my_list);
     pop_back(my_list);
     delete_Node(my_list, go);
     delete_Node(my_list, my_list -> first);
     print_List(my_list);
+    erase_List(my_list);
     return 0;
 }
+
