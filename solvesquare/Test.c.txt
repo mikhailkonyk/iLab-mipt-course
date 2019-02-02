@@ -1,0 +1,140 @@
+﻿#include <stdio.h>
+#include <math.h>
+#include <conio.h>
+
+/**
+@mainpage Программа для решения квадратного уравнения.
+*/
+
+/// Решенает квадратное уравнения;
+int solve_square(float a, float b, float c, float * x1, float * x2);
+
+/// Решает квадратное уравнение и выводит результат решения;
+int solve_and_print(float a, float b, float c, float x1, float x2);
+
+/// Решает линейное уравнение
+int solve_line(float b, float c, float * x1);
+
+/// Переменная задающая точность. Используется для сравнения рациональных чисел;
+const float Tol = 0.0001;
+
+enum Roots_Amount
+{
+    INF = 1000,
+    NROOTS_0 = 0,
+    NROOTS_1 = 1,
+    NROOTS_2 = 2,
+    ERROR = 13
+};
+
+int main()
+{
+    printf("_____Quadratic equation._______\n");
+    printf("Enter the coefficients a, b, c:\n");
+	float a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
+    scanf("%f %f %f", &a, &b, &c);
+    if (!isfinite(a) || !isfinite(b) || !isfinite(c))
+    {
+        printf("Error: Incorrect coefficients entered, try again. \n");
+        return ERROR;
+    }
+    solve_and_print(a, b, c, x1, x2);
+    printf("\n#by Konyk Mikhail, 02.10.18");
+    getch();
+    return 0;
+}
+/**
+@function
+@brief Выводимые значения: Выводит "Infinite number of roots" в случае бесконечного кол-ва корней;\n
+ Выводит "The equation has no roots" в случае если корней нет;\n
+ Выводит один корень если уравнение линейное;\n
+ Выводит два корня квадратного уравнения если D > 0;
+@param a, b, c -коэффициенты квадартного уравнения.
+@param x1, x2 - корни квадратного уравнения
+@return Ничего не возвращает
+*/
+int solve_and_print(float a, float b, float c, float x1, float x2)
+{
+    if (!isfinite(a) || !isfinite(b) || !isfinite(c))
+    {
+        printf("Error: Incorrect coefficients entered, try again. \n");
+        return ERROR;
+    }
+    enum Roots_Amount n_roots = solve_square(a, b, c, &x1, &x2);
+    switch(n_roots)
+    {
+        case NROOTS_0:  printf("The equation has no roots.\n");
+                 break;
+        case NROOTS_1:  printf("The equation is linear.\nx = %.2f\n", x1);
+                 break;
+        case NROOTS_2:  printf("x1 = %.2f; \nx2 = %.2f; \n", x1, x2);
+                 break;
+        case INF: printf("Infinite number of roots.\n");
+                 break;
+        case ERROR:  printf("An error has occurred, try again.");
+                 break;
+    }
+}
+/**
+@function
+@param a, b, c -коэффициенты квадартного уравнения.
+@param x1, x2 - указатели на корни квадратного уравнения.
+@return 1) ERROR (= 13) - Ошибка, введены неправильные коэффициенты;
+@return 2) NROOTS_0 (= 0) - Уравнение не имеет корней, D < 0;
+@return 3) Возвращает 1 если уравнение оказалось линейныйм (a = 0) и имеет один корень;
+@return 4) Возвращает 2, если уравнение имеет 2 корня;
+@return 5) INF (= 1000) - Бесконечное кол-во корней;
+*/
+int solve_square(float a, float b, float c, float * x1, float * x2)
+{
+    if (!isfinite(a) || !isfinite(b) || !isfinite(c))
+    {
+        printf("Error: Incorrect coefficients entered, try again. \n");
+        return ERROR;
+    }
+    if (fabs(a) < Tol)
+        return solve_line(b, c, x1);
+    else
+    {
+        float discr = b * b - 4 * a * c;
+        if (discr >= 0)
+        {
+            float sq_discr = sqrt(discr);
+            *x1 = (-b + sq_discr) / (2 * a);
+            *x2 = (-b - sq_discr) / (2 * a);
+            return NROOTS_2;
+        }
+        else return NROOTS_0;
+    }
+}
+/**
+@function
+@brief В случае, если уравнение является линейным(a = 0) вызывается данная функция.
+@param a, b - коэффициенты уравнения;
+@param x1 - указатель на корень уравнения.
+@return 1) ERROR (= 13) - Ошибка, введены неправильные коэффициенты;
+@return 2) INF (= 1000) - Бесконечное кол-во корней;
+@return 3) NROOTS_0 (= 0) - Уравнение не имеет корней;
+@return 4) NROOTS_1 (= 1) - Уравнение имеет один корень.
+*/
+int solve_line(float b, float c, float * x1)
+{
+    if (!isfinite(b) || !isfinite(c))
+    {
+        printf("Error: Incorrect coefficients entered, try again. \n");
+        return ERROR;
+    }
+    if (fabs(b) < Tol && fabs(c) < Tol)
+    {
+        return INF;
+    }
+    else if (fabs(c) < Tol)
+    {
+        return NROOTS_0;
+    }
+    else
+    {
+        *x1 = -b / c;
+        return NROOTS_1;
+    }
+}

@@ -1,0 +1,188 @@
+\hypertarget{_solve_square_8c}{}\section{Solve\+Square.\+c File Reference}
+\label{_solve_square_8c}\index{Solve\+Square.\+c@{Solve\+Square.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$conio.\+h$>$}\newline
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4}{Roots\+\_\+\+Amount}} \{ \newline
+\mbox{\hyperlink{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4a2e6059d72d8fde88f3127eb147e4eff8}{I\+NF}} = 1000, 
+\mbox{\hyperlink{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4ad0e8cfb5a94c11322a44ea3cfe60f6e0}{N\+R\+O\+O\+T\+S\+\_\+0}} = 0, 
+\mbox{\hyperlink{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4af216ded28d2f4a56af5ce985ecc88831}{N\+R\+O\+O\+T\+S\+\_\+1}} = 1, 
+\mbox{\hyperlink{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4a50f135832788dd759f1ee6b3c2c9b12d}{N\+R\+O\+O\+T\+S\+\_\+2}} = 2, 
+\newline
+\mbox{\hyperlink{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4a2fd6f336d08340583bd620a7f5694c90}{E\+R\+R\+OR}} = 13
+ \}
+\begin{DoxyCompactList}\small\item\em Return function enumeration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_solve_square_8c_a856530c07b857cc4b97a10ae01220b05}{solve\+\_\+square}} (float a, float b, float c, float $\ast$x1, float $\ast$x2)
+\begin{DoxyCompactList}\small\item\em Solves a quadratic equation;. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_solve_square_8c_a129872b76748bcd404454db239b589f9}{solve\+\_\+and\+\_\+print}} (float a, float b, float c, float x1, float x2)
+\begin{DoxyCompactList}\small\item\em Solves the quadratic equation and displays the result of the solution;. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_solve_square_8c_a2327ea3036695a9199bb7ba421902788}{solve\+\_\+line}} (float b, float c, float $\ast$x1)
+\begin{DoxyCompactList}\small\item\em Solves the linear equation. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_solve_square_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em The main function,~\newline
+asks the user to enter the coefficients,~\newline
+checks their correctness~\newline
+and calls the function to solve the equation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const float \mbox{\hyperlink{_solve_square_8c_a71dd6e093e8735c8f0c3fd7d3f9f1e77}{Tol}} = 0.\+0001
+\begin{DoxyCompactList}\small\item\em Variable setting accuracy. Used to compare rational numbers;. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4}\label{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4}} 
+\index{Solve\+Square.\+c@{Solve\+Square.\+c}!Roots\+\_\+\+Amount@{Roots\+\_\+\+Amount}}
+\index{Roots\+\_\+\+Amount@{Roots\+\_\+\+Amount}!Solve\+Square.\+c@{Solve\+Square.\+c}}
+\subsubsection{\texorpdfstring{Roots\+\_\+\+Amount}{Roots\_Amount}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4}{Roots\+\_\+\+Amount}}}
+
+
+
+Return function enumeration. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{I\+NF@{I\+NF}!Solve\+Square.\+c@{Solve\+Square.\+c}}\index{Solve\+Square.\+c@{Solve\+Square.\+c}!I\+NF@{I\+NF}}}\mbox{\Hypertarget{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4a2e6059d72d8fde88f3127eb147e4eff8}\label{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4a2e6059d72d8fde88f3127eb147e4eff8}} 
+I\+NF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{N\+R\+O\+O\+T\+S\+\_\+0@{N\+R\+O\+O\+T\+S\+\_\+0}!Solve\+Square.\+c@{Solve\+Square.\+c}}\index{Solve\+Square.\+c@{Solve\+Square.\+c}!N\+R\+O\+O\+T\+S\+\_\+0@{N\+R\+O\+O\+T\+S\+\_\+0}}}\mbox{\Hypertarget{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4ad0e8cfb5a94c11322a44ea3cfe60f6e0}\label{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4ad0e8cfb5a94c11322a44ea3cfe60f6e0}} 
+N\+R\+O\+O\+T\+S\+\_\+0&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{N\+R\+O\+O\+T\+S\+\_\+1@{N\+R\+O\+O\+T\+S\+\_\+1}!Solve\+Square.\+c@{Solve\+Square.\+c}}\index{Solve\+Square.\+c@{Solve\+Square.\+c}!N\+R\+O\+O\+T\+S\+\_\+1@{N\+R\+O\+O\+T\+S\+\_\+1}}}\mbox{\Hypertarget{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4af216ded28d2f4a56af5ce985ecc88831}\label{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4af216ded28d2f4a56af5ce985ecc88831}} 
+N\+R\+O\+O\+T\+S\+\_\+1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{N\+R\+O\+O\+T\+S\+\_\+2@{N\+R\+O\+O\+T\+S\+\_\+2}!Solve\+Square.\+c@{Solve\+Square.\+c}}\index{Solve\+Square.\+c@{Solve\+Square.\+c}!N\+R\+O\+O\+T\+S\+\_\+2@{N\+R\+O\+O\+T\+S\+\_\+2}}}\mbox{\Hypertarget{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4a50f135832788dd759f1ee6b3c2c9b12d}\label{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4a50f135832788dd759f1ee6b3c2c9b12d}} 
+N\+R\+O\+O\+T\+S\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+OR@{E\+R\+R\+OR}!Solve\+Square.\+c@{Solve\+Square.\+c}}\index{Solve\+Square.\+c@{Solve\+Square.\+c}!E\+R\+R\+OR@{E\+R\+R\+OR}}}\mbox{\Hypertarget{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4a2fd6f336d08340583bd620a7f5694c90}\label{_solve_square_8c_af35383b9133aa0363aa5c936dce043c4a2fd6f336d08340583bd620a7f5694c90}} 
+E\+R\+R\+OR&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_solve_square_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{_solve_square_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{Solve\+Square.\+c@{Solve\+Square.\+c}!main@{main}}
+\index{main@{main}!Solve\+Square.\+c@{Solve\+Square.\+c}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The main function,~\newline
+asks the user to enter the coefficients,~\newline
+checks their correctness~\newline
+and calls the function to solve the equation. 
+
+\begin{DoxyReturn}{Returns}
+1) 0 if program the program was successful; 
+
+2) E\+R\+R\+OR if if an error occurred. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_solve_square_8c_a129872b76748bcd404454db239b589f9}\label{_solve_square_8c_a129872b76748bcd404454db239b589f9}} 
+\index{Solve\+Square.\+c@{Solve\+Square.\+c}!solve\+\_\+and\+\_\+print@{solve\+\_\+and\+\_\+print}}
+\index{solve\+\_\+and\+\_\+print@{solve\+\_\+and\+\_\+print}!Solve\+Square.\+c@{Solve\+Square.\+c}}
+\subsubsection{\texorpdfstring{solve\+\_\+and\+\_\+print()}{solve\_and\_print()}}
+{\footnotesize\ttfamily int solve\+\_\+and\+\_\+print (\begin{DoxyParamCaption}\item[{float}]{a,  }\item[{float}]{b,  }\item[{float}]{c,  }\item[{float}]{x1,  }\item[{float}]{x2 }\end{DoxyParamCaption})}
+
+
+
+Solves the quadratic equation and displays the result of the solution;. 
+
+Display Values\+: Displays \char`\"{}\+Infinite Number of Roots\char`\"{} in the case of an infinite number of roots; ~\newline
+Displays \char`\"{}\+Equation has no roots\char`\"{} in case there are no roots; ~\newline
+Displays a single root if the equation is linear; ~\newline
+Deduces the two roots of a quadratic equation if D$>$ 0;.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a,b,c} & are the coefficients of a quadrant equation. \\
+\hline
+{\em x1,x2} & -\/ roots of a quadratic equation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1) E\+R\+R\+OR if coefficients are incorrect; 
+
+2) Nothing if it is all right. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_solve_square_8c_a2327ea3036695a9199bb7ba421902788}\label{_solve_square_8c_a2327ea3036695a9199bb7ba421902788}} 
+\index{Solve\+Square.\+c@{Solve\+Square.\+c}!solve\+\_\+line@{solve\+\_\+line}}
+\index{solve\+\_\+line@{solve\+\_\+line}!Solve\+Square.\+c@{Solve\+Square.\+c}}
+\subsubsection{\texorpdfstring{solve\+\_\+line()}{solve\_line()}}
+{\footnotesize\ttfamily int solve\+\_\+line (\begin{DoxyParamCaption}\item[{float}]{b,  }\item[{float}]{c,  }\item[{float $\ast$}]{x1 }\end{DoxyParamCaption})}
+
+
+
+Solves the linear equation. 
+
+If the equation is linear (a = 0), this function is called.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a,b} & -\/ coefficients of the equation; \\
+\hline
+{\em x1} & is a pointer to the root of the equation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1) E\+R\+R\+OR (= 13) -\/ Error, incorrect coefficients entered; 
+
+2) I\+NF (= 1000) -\/ Infinite number of roots; 
+
+3) N\+R\+O\+O\+T\+S\+\_\+0 (= 0) -\/ The equation has no roots; 
+
+4) N\+R\+O\+O\+T\+S\+\_\+1 (= 1) -\/ The equation has one root. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_solve_square_8c_a856530c07b857cc4b97a10ae01220b05}\label{_solve_square_8c_a856530c07b857cc4b97a10ae01220b05}} 
+\index{Solve\+Square.\+c@{Solve\+Square.\+c}!solve\+\_\+square@{solve\+\_\+square}}
+\index{solve\+\_\+square@{solve\+\_\+square}!Solve\+Square.\+c@{Solve\+Square.\+c}}
+\subsubsection{\texorpdfstring{solve\+\_\+square()}{solve\_square()}}
+{\footnotesize\ttfamily int solve\+\_\+square (\begin{DoxyParamCaption}\item[{float}]{a,  }\item[{float}]{b,  }\item[{float}]{c,  }\item[{float $\ast$}]{x1,  }\item[{float $\ast$}]{x2 }\end{DoxyParamCaption})}
+
+
+
+Solves a quadratic equation;. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a,b,c} & are the coefficients of a quadrant equation. \\
+\hline
+{\em x1,x2} & are pointers to the roots of a quadratic equation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1) E\+R\+R\+OR (= 13) -\/ Error, incorrect coefficients entered; 
+
+2) N\+R\+O\+O\+T\+S\+\_\+0 (= 0) -\/ The equation has no roots, D $<$0; 
+
+3) Returns 1 if the equation is linear (a = 0) and has one root; 
+
+4) Returns 2 if the equation has 2 roots; 
+
+5) I\+NF (= 1000) -\/ Infinite number of roots; 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{_solve_square_8c_a71dd6e093e8735c8f0c3fd7d3f9f1e77}\label{_solve_square_8c_a71dd6e093e8735c8f0c3fd7d3f9f1e77}} 
+\index{Solve\+Square.\+c@{Solve\+Square.\+c}!Tol@{Tol}}
+\index{Tol@{Tol}!Solve\+Square.\+c@{Solve\+Square.\+c}}
+\subsubsection{\texorpdfstring{Tol}{Tol}}
+{\footnotesize\ttfamily const float Tol = 0.\+0001}
+
+
+
+Variable setting accuracy. Used to compare rational numbers;. 
+
