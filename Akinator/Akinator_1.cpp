@@ -1,3 +1,4 @@
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <cstdio>
 #include <cstdlib>
@@ -5,12 +6,13 @@
 #include <iostream>
 #include <string>
 #include <Windows.h>
+#include <stack>
 
 const int STRING_SIZE = 100;
 const int ANSWER_SIZE = 4;
 
 struct Node {
-	explicit Node(Node* parent_node = NULL) : 
+	explicit Node(Node* parent_node = NULL) :
 		parent(parent_node),
 		right(NULL),
 		left(NULL),
@@ -31,7 +33,7 @@ struct Node {
 
 struct Tree {
 	Tree() :
-	root(new Node) {}
+		root(new Node) {}
 
 	~Tree() {
 		delete root;
@@ -47,7 +49,7 @@ struct Tree {
 	}
 
 	void NodeDump(FILE * out, const Node * node) {
-		fprintf(out, "Node%p [label = \"%s\"]\n", node, node->data);
+		fprintf(out, "Node%p [shape=\"box\", label = \"%s\"]\n", node, node->data);
 		if (node->left) {
 			fprintf(out, "Node%p -> Node%p\n", node, node->left);
 			NodeDump(out, node->left);
@@ -75,6 +77,8 @@ public:
 
 	void Ask(Node* node) {
 		if (node == NULL) throw std::runtime_error("null_ptr!!!");
+
+		if (node == NULL) throw std::runtime_error("null_ptr!!!");
 		printf("Игра началась, отвечайте на вопросы! \n (вашим ответом может быть только \"да\" или \"нет\")\n");
 		if (tree.root->data == NULL) {
 			tree.root = new Node;
@@ -84,35 +88,75 @@ public:
 			node = tree.root;
 		}
 
-		char ans[4];
-		while (node->left != NULL && node->right != NULL) {
-			printf("%s?\n", node->data);
-			scanf("%3s", ans);
-			if (strcmp(ans, "да") == 0)
-				node = node->right;
-			else if (strcmp(ans, "нет") == 0)
-				node = node->left;
-			else
-				printf("Пожалуйста, введите корректный ответ!\n");
-		}
-
+		char ans[10];
 		while (true) {
 			printf("%s?\n", node->data);
 			scanf("%3s", ans);
 			if (strcmp(ans, "да") == 0) {
-				printf("Хорошая работа!!!\n");
-				break;
-			
+				if (node->right == NULL) {
+					printf("Хорошая работа!!!\n");
+					return;
+				}
+				node = node->right;
 			}
 			else if (strcmp(ans, "нет") == 0) {
-				InsertHero(node);
-				printf("Новый персонаж добавлен!\n");
-				break;	
+				if (node->left == NULL) {
+					InsertHero(node);
+					printf("Новый персонаж добавлен!\n");
+					return;
+				}
+				node = node->left;
 			}
-			else printf("Пожалуйста, введите корректный ответ!\n");
+			else
+				printf("Пожалуйста, введите корректный ответ!\n");
 		}
+		
+		std::stack<Node*> stack;
+		/*
+		while (node->left != NULL && node->right != NULL || stack.size() != 0) {
+			printf("%s?\n", node->data);
+			scanf("\n%9[^\n]", ans);
+			if (strcmp(ans, "да") == 0) {
+				if (node->left == NULL && node->right == 0) {
+					printf("Хорошая работа!!!\n");
+					return;
+				}
+				node = node->right;
+			}
+			else if (strcmp(ans, "нет") == 0) {
+				if (node->left != NULL)
+					node = node->left;
+				else if (stack.size() != 0) {
+					node = stack.top();
+					stack.pop();
+				}
+				else {
+					InsertHero(node);
+					printf("Новый персонаж добавлен!\n");
+					return;
+				}
+			}
+			else if (strcmp(ans, "не знаю") == 0) {
+				if (node->parent != NULL)
+					if (node->parent->left == node)
+						stack.push(node->parent->right);
+					else
+						stack.push(node->parent->left);
+				else if (node == tree.root->left)
+					stack.push(tree.root->right);
+				else stack.push(tree.root->left);
+
+				if (node->right != 0)
+					stack.push(node->right);
+				stack.push(node->left);
+
+				node = stack.top();
+				stack.pop();
+			}
+			 */
+
 	}
-	
+
 
 	void InsertHero(Node* node) {
 		char* hero_name = new char[STRING_SIZE];
@@ -125,7 +169,7 @@ public:
 		ask_node->data = ask;
 		Node* new_hero = new Node(ask_node);
 		new_hero->data = hero_name;
-		if (node->parent != NULL) 
+		if (node->parent != NULL)
 			if (node->parent->left == node) {                        // We hook to the left of the parent
 				node->parent->left = ask_node;
 				ask_node->left = node;
@@ -151,9 +195,11 @@ public:
 		}
 	}
 
+
+
 	void FileOpener(char c) {
 		FILE * file = NULL;
-		if (c == 'w' && tree.root->data != NULL) 
+		if (c == 'w' && tree.root->data != NULL)
 			file = fopen("mytree.txt", "wb");
 		else if (c == 'r')
 			file = fopen("mytree.txt", "rb");
@@ -179,8 +225,8 @@ public:
 		fwrite(&len, sizeof(size_t), 1, file);
 		fwrite(node->data, sizeof(char), len, file);
 		c = ' ';
-		
-		if (node->left){
+
+		if (node->left) {
 			fwrite(&c, sizeof(char), 1, file);
 			Write(node->left, file);
 		}
@@ -203,27 +249,27 @@ public:
 		char c = 0;
 		size_t len = 0;
 		node = new Node(parent);
-		fread(&c, sizeof(char), 1, file);               
+		fread(&c, sizeof(char), 1, file);
 		if (c == '[') {
-			fread(&len, sizeof(size_t), 1, file);       
+			fread(&len, sizeof(size_t), 1, file);
 			node->data = new char[len + 1];
-			fread(node->data, sizeof(char), len, file); 
+			fread(node->data, sizeof(char), len, file);
 			node->data[len] = '\0';
 
-			fread(&c, sizeof(char), 1, file);           
+			fread(&c, sizeof(char), 1, file);
 			if (c == ' ') {
 				node->left = new Node(node);
 				Read(node->left, node, file);
 			}
 
-			fread(&c, sizeof(char), 1, file);           
+			fread(&c, sizeof(char), 1, file);
 			if (c == ' ') {
 				node->right = new Node(node);
 				Read(node->right, node, file);
 			}
 		}
-		fread(&c, sizeof(char), 1, file);               
-	
+		fread(&c, sizeof(char), 1, file);
+
 	}
 
 	Node* Search(Node* node, char* search_name) {
@@ -247,7 +293,7 @@ public:
 	void Describe() {
 		char* hero_name = new char[STRING_SIZE];
 		printf("Описание персонажа.\nВведите имя персонажа, которого необходимо описать : \n");
-		scanf(" %99[^\n]", hero_name);		
+		scanf(" %99[^\n]", hero_name);
 
 		Node * node = Search(tree.root, hero_name);
 
@@ -264,10 +310,9 @@ public:
 		else {
 			printf("Извините, но персонаж %s не найден :(\n", hero_name);
 		}
-		printf("node d = %d\n", node->depht);
 	}
 
-	
+
 	void Compare() {
 		printf("Введите персонажей для сравнения :\n");
 		char hero_name_1[STRING_SIZE];
@@ -285,14 +330,14 @@ public:
 			printf("Извините, но персонаж %s не найден :(\n", hero_name_2);
 			return;
 		}
-		
+
 		Node ** description_1 = GetDescription(ptr_1);
 		Node ** description_2 = GetDescription(ptr_2);
 
 		int index = 0;
 		while (description_1[index] == description_2[index])
 			++index;
-		
+
 		printf("Результат сравнения :\n");
 		if (description_1[1] == description_2[1]) {
 			printf("%s и %s похожи тем, что они ", hero_name_1, hero_name_2);
@@ -321,7 +366,7 @@ public:
 
 	Node ** GetDescription(Node* node) {
 		if (node == NULL) throw std::runtime_error("Null prt!!!");
-		 
+
 		Node ** description = new Node*[node->depht + 1];
 		for (int i = node->depht; node; --i) {
 			description[i] = node;
@@ -334,25 +379,25 @@ public:
 		printf("Вы уверены, что хотите закончить игру?\n"
 			"[1] << Сохранить и выйти >> \n"
 			"[2] << Выйти без сохранения >> \n"
-		    "[0] << Отмена >>\n");
+			"[0] << Отмена >>\n");
 		int ans = 0;
 		while (true) {
 			scanf("%d", &ans);
 			switch (ans) {
 			case 1: FileOpener('w');
-				    return 1;
+				return 1;
 			case 2: return 2;
 			case 0: return 0;
 			default: printf("Введите корректный ответ!\n");
-					 break;
+				break;
 			}
-		}	
+		}
 	}
 
 	void NodeDelete(Node* node) {
 		if (node == NULL) throw std::runtime_error("NodeDelete() argument - NULL pointer!!!");
-		
-		if (node->data) 
+
+		if (node->data)
 			delete[] node->data;
 		if (node->left)
 			NodeDelete(node->left);
@@ -372,9 +417,9 @@ public:
 
 	int PlayGame() {
 		printf(" << Меню >> \n [1]  << Играть в игру >> \n"
-               " [2]  << Описание персонажа >> \n"
-			   " [3]  << Сохранить дерево в файл >> \n [4]  << Читать данные из файла >> \n"
-			   " [5]  << Cравнить персонажей >> \n [6]  << DOT >> \n [0]  << Закончить игру >> \n");
+			" [2]  << Описание персонажа >> \n"
+			" [3]  << Сохранить дерево в файл >> \n [4]  << Читать данные из файла >> \n"
+			" [5]  << Cравнить персонажей >> \n [6]  << DOT >> \n [0]  << Закончить игру >> \n");
 		while (true) {
 			char ans = getchar();
 			char next_symbol = '\0';
@@ -385,25 +430,25 @@ public:
 				ans = '\0';
 			switch (ans) {
 			case '1': Ask(tree.root);
-					break;
+				break;
 			case '2': if (TreeRootChecker()) break;
-					Describe();
-					break;
+				Describe();
+				break;
 			case '3': if (TreeRootChecker()) break;
-					FileOpener('w');
-					break;
+				FileOpener('w');
+				break;
 			case '4': FileOpener('r');
-					break;
+				break;
 			case '5': if (TreeRootChecker()) break;
-					Compare();
-					break;
+				Compare();
+				break;
 			case '6': if (TreeRootChecker()) break;
-					tree.TreeDump();
-					break;
+				tree.TreeDump();
+				break;
 			case '0': if (Exit()) {
-					return 0;
+				return 0;
 			}
-					else break;
+					  else break;
 			default: break;
 			}
 			printf("Введите номер команды : \n");
@@ -418,7 +463,7 @@ private:
 
 int main()
 {
-	SetConsoleCP(1251); 
+	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	// Чтобы данные функции работали корректно необходимо установить в консоли шрифт Lucida Console.
 	try {
@@ -433,5 +478,3 @@ int main()
 		printf("Неизвестная ошибка!\n");
 	}
 }
-
-
