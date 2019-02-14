@@ -110,51 +110,6 @@ public:
 			else
 				printf("Пожалуйста, введите корректный ответ!\n");
 		}
-		
-		std::stack<Node*> stack;
-		/*
-		while (node->left != NULL && node->right != NULL || stack.size() != 0) {
-			printf("%s?\n", node->data);
-			scanf("\n%9[^\n]", ans);
-			if (strcmp(ans, "да") == 0) {
-				if (node->left == NULL && node->right == 0) {
-					printf("Хорошая работа!!!\n");
-					return;
-				}
-				node = node->right;
-			}
-			else if (strcmp(ans, "нет") == 0) {
-				if (node->left != NULL)
-					node = node->left;
-				else if (stack.size() != 0) {
-					node = stack.top();
-					stack.pop();
-				}
-				else {
-					InsertHero(node);
-					printf("Новый персонаж добавлен!\n");
-					return;
-				}
-			}
-			else if (strcmp(ans, "не знаю") == 0) {
-				if (node->parent != NULL)
-					if (node->parent->left == node)
-						stack.push(node->parent->right);
-					else
-						stack.push(node->parent->left);
-				else if (node == tree.root->left)
-					stack.push(tree.root->right);
-				else stack.push(tree.root->left);
-
-				if (node->right != 0)
-					stack.push(node->right);
-				stack.push(node->left);
-
-				node = stack.top();
-				stack.pop();
-			}
-			 */
-
 	}
 
 
