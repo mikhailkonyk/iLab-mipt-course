@@ -1,0 +1,66 @@
+start
+
+in
+in
+in
+
+	pop cx
+	pop bx
+	pop ax
+
+	push ax
+	push 0
+	je 13
+
+	push bx
+	push bx
+	mul
+	pop [1]
+	
+	push 4
+	push ax
+	mul
+	push cx
+	mul
+	pop [2]
+
+	push [1]
+	push [2]
+	sub
+	sqrt
+	pop [3]
+	
+	push -1
+	push bx
+	mul
+	pop [4]
+	
+	push 2
+	push ax
+	mul
+	pop [5]
+	
+	push [4]
+	push [3]
+	sum
+
+	push [5]
+	div
+	out
+
+	push [4]
+	push [3]
+	sub
+	
+	push [5]
+	div
+	out
+	jmp 12	
+
+: 13
+	push -666
+	out	
+	
+: 12
+	
+end
